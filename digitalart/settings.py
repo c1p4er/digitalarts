@@ -1,7 +1,7 @@
-from django.contrib.messages import constants as messages  # new
-
+from django.contrib.messages import constants as messages  # NumericPasswordValidator
 from pathlib import Path
 import dj_database_url
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,13 +82,14 @@ WSGI_APPLICATION = "digitalart.wsgi.application"
 #       "NAME": BASE_DIR / "db.sqlite3",
 #   }
 # }
-DATABASES = {
-    "default": dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default="postgresql://postgres:postgres@localhost:5432/mysite",
-        conn_max_age=600,
-    )
-}
+# DATABASES = {
+#   "default": dj_database_url.config(
+# Replace this value with your local database's connection string.
+#       default="postgresql://postgres:postgres@localhost:5432/mysite",
+#       conn_max_age=600,
+#   )
+# }
+DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
