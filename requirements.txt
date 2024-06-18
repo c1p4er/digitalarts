@@ -1,6 +1,7 @@
 asgiref==3.8.1
 certifi==2024.6.2
 charset-normalizer==3.3.2
+dj-database-url==2.2.0
 Django==5.0.6
 django-admin-thumbnails==0.2.9
 django-axes==6.5.0
@@ -10,6 +11,7 @@ idna==3.7
 packaging==24.1
 pillow==10.3.0
 psycopg==3.1.19
+psycopg2-binary==2.9.9
 python-decouple==3.8
 requests==2.31.0
 setuptools==70.0.0
