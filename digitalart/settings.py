@@ -83,7 +83,8 @@ DATABASES = {
     }
 }
 database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = database_url
+
+DATABASES = {"default": dj_database_url.config(database_url)}
 # DATABASES = {
 #   "default": dj_database_url.config(
 # Replace this value with your local database's connection string.
