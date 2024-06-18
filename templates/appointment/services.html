@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ tender.title }}{% endblock %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+  {% include 'includes/messages.html' %}
+  <div class="container">
+    <div class="row">
+      {% include 'includes/dashboard_sidebar.html' %}
+      <main class="col-md-9">
+        <article class="card">
+          <header class="card-header">
+            <strong class="d-inline-block mr-3">Logged in as:</strong>
+            <span>{{ user.full_name }}</span>
+          </header>
+          <div class="card-body">
+            <div class="row">
+              {% for service in services %}
+              <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h4 class="card-title">{{ service.name }}</h4>
+                    <p class="card-text">{{ service.description }}</p>
+                    <a href="{% url 'book_appointment' service.id %}" class="btn btn-primary">Book Appointment</a>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

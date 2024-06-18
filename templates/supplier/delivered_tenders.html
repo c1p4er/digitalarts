@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% load static %} 
+{% block title %} Delivered tenders{% endblock %} {% block content %}
+<section class="section-conten padding-y bg">
+  {% include 'includes/messages.html' %}
+  <div class="container">
+    <div class="row">
+      {% include 'includes/supplier_sidebar.html' %}
+      <main class="col-md-9">
+        <article class="card">
+          <header class="card-header">
+            <strong class="d-inline-block mr-3">Logged in as:</strong>
+            <span> {{user.full_name}} </span>
+          </header>
+          <div class="card-body">
+            <h2>Delivered Tenders</h2>
+        {% if delivered_products %}
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Supplier</th>
+                <th>Delivered Date</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for response in delivered_products %}
+                <tr>
+                  <td>{{ response.tender_request.title }}</td>
+                  <td>{{ response.supplier.username }}</td>
+                  <td>{{ response.updated_at|date:"d M Y" }}</td>
+                  <td><a href="{% url 'tender_detail' response.tender_request.id %}">View Details</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>No delivered tenders found.</p>
+        {% endif %}
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

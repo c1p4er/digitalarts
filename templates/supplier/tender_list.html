@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tender List{% endblock %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+  {% include 'includes/messages.html' %}
+  <div class="container">
+    <div class="row">
+      {% include 'includes/supplier_sidebar.html' %}
+      <main class="col-md-9">
+        <article class="card">
+          <header class="card-header">
+            <strong class="d-inline-block mr-3">Logged in as:</strong>
+            <span>{{ user.full_name }}</span>
+          </header>
+          <div class="card-body">
+            <h2 class="mb-4">Tender List</h2>
+            {% if tenders %}
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Tender Title</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for tender in tenders %}
+                      <tr>
+                        <td>{{ tender.title }}</td>
+                        <td>
+                          <a href="{% url 'tender_detail' tender.id %}" class="btn btn-primary btn-sm">View Details</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p>No tenders available</p>
+            {% endif %}
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

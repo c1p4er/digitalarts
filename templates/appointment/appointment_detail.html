@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+  {% include 'includes/messages.html' %}
+  <div class="container">
+    <div class="row">
+      {% include 'includes/dashboard_sidebar.html' %}
+      <main class="col-md-9">
+        <article class="card">
+          <header class="card-header">
+            <strong class="d-inline-block mr-3">Logged in as:</strong>
+            <span>{{ user.full_name }}</span>
+          </header>
+          <div class="card-body">
+            <h2>Appointment Details</h2>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th>Service</th>
+                  <td>{{ appointment.service.name }}</td>
+                </tr>
+                <tr>
+                  <th>Status</th>
+                  <td>{{ appointment.status }}</td>
+                </tr>
+              </tbody>
+            </table>
+            {% if payment %}
+            <h3>Payment Details</h3>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th>Amount</th>
+                  <td>${{ payment.amount }}</td>
+                </tr>
+                <tr>
+                  <th>Status</th>
+                  <td>{{ payment.status }}</td>
+                </tr>
+              </tbody>
+            </table>
+            {% endif %}
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

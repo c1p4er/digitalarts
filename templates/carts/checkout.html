@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Checkout{% endblock %}
+{% load static %}
+{% block content %}
+<section class="section-content padding-y bg">
+  {% include 'includes/messages.html' %}
+    <div class="container">
+      <div class="row">
+        <aside class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Billing address</h4>
+                <form action="{% url 'place_order' %}" method="POST">
+                  {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label for="first_name">First Name<span class="text-danger">*</span></label>
+                            <input type="text" name="first_name" class="form-control" placeholder="Enter first name" value="{{ user_info.first_name }}" required>
+                        </div>
+                        <div class="col form-group">
+                            <label for="last_name">Last Name<span class="text-danger">*</span></label>
+                            <input type="text" name="last_name" class="form-control" placeholder="Enter last name" value="{{ user_info.last_name }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label for="email">Email<span class="text-danger">*</span></label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter email" value="{{ user_info.email }}" required>
+                        </div>
+                        <div class="col form-group">
+                            <label for="phone">Phone Number<span class="text-danger">*</span></label>
+                            <input type="tel" name="phone" class="form-control" placeholder="Enter Phone number" value="{{ user_info.phone }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label for="address_line_1">Address Line 1 <span class="text-danger">*</span></label>
+                            <input type="text" name="address_line_1" class="form-control" placeholder="Enter Address Line 1" value="{{ user_info.address_line_1 }}" required>
+                        </div>
+                        <div class="col form-group">
+                            <label for="address_line_2">Address Line 2 <span class="text-muted">(optional)</span></label>
+                            <input type="text" name="address_line_2" class="form-control" placeholder="Enter Address Line 2" value="{{ user_info.address_line_2 }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label for="city">City<span class="text-danger">*</span></label>
+                            <input type="text" name="city" class="form-control" placeholder="Enter City" value="{{ user_info.city }}" required>
+                        </div>
+                        <div class="col form-group">
+                            <label for="state">State <span class="text-muted">(optional)</span></label>
+                            <input type="text" name="state" class="form-control" placeholder="Enter State" value="{{ user_info.state }}">
+                        </div>
+                        <div class="col form-group">
+                            <label for="county">County<span class="text-danger">*</span></label>
+                            <input type="text" name="county" class="form-control" placeholder="Enter County" value="{{ user_info.county }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="order_note">Order Note <span class="text-muted">(optional)</span></label>
+                        <textarea name="order_note" class="form-control" placeholder="Enter Order Note">{{ user_info.order_note }}</textarea>
+                    </div>
+                    <div class="form-row">
+                      <div class="col form-group">
+                          <input type="checkbox" name="is_shipped" id="is_shipped">
+                          <label for="is_shipped">Ship Order</label>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="col form-group">
+                          <label for="location">Location</label>
+                          <input type="text" name="location" id="location" class="form-control">
+                      </div>
+                  </div>
+                
+            </div>
+          </div>
+        </aside>
+        <aside class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+                <table class="table table-borderless table-shopping-cart">
+                    <thead class="text-muted">
+                      <tr class="small text-uppercase">
+                        <th scope="col">Product</th>
+                        <th scope="col" width="120">Quantity</th>
+                        <th scope="col" width="120">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for cart_item in cart_items %}
+                      <tr>
+                        <td>
+                          <figure class="itemside align-items-center">
+                            <div class="aside">
+                              <img src="{{cart_item.product.image.url}}" class="img-sm" />
+                            </div>
+                            <figcaption class="info">
+                              <a href="{{ cart_item.product.get_url }}" class="title text-dark">
+                                {{cart_item.product.product_name}}
+                              </a>
+                              <p class="text-muted small">
+                                {% if cart_item.variations.all %} 
+                                  {% for item in cart_item.variations.all %} 
+                                  {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }}<br />
+                                  {% endfor %} 
+                                {% endif %}
+                              </p>
+                            </figcaption>
+                          </figure>
+                        </td>
+                        <td>{{cart_item.quantity}}</td>
+                        <td>
+                          <div class="price-wrap">
+                            <var class="price">${{cart_item.sub_total}}</var>
+                            <small class="text-muted">${{cart_item.product.price}} each</small>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+              <p class="text-center mb-3">
+                <img src="{% static 'images/misc/payments.png' %}" height="26" />
+              </p>
+              
+              <button type="submit" name="submit" class="btn btn-primary btn-block">Place Order</button>
+              <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+              </form>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+{% endblock %}

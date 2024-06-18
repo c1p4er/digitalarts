@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ tender.title }}{% endblock %}
+
+{% block content %}
+<section class="section-content padding-y bg-light">
+  {% include 'includes/messages.html' %}
+  <div class="container">
+    <div class="row">
+      {% include 'includes/supplier_sidebar.html' %}
+      <main class="col-md-9">
+        <article class="card mb-4">
+          <header class="card-header bg-primary text-white">
+            <strong class="d-inline-block mr-3">Logged in as:</strong>
+            <span>{{ user.full_name }}</span>
+          </header>
+          <div class="card-body">
+            <h1 class="card-title">Title: {{ tender.title }}</h1>
+            <p class="card-text"><strong>Description:</strong> {{ tender.description }}</p>
+            <p class="card-text"><strong>Budget:</strong> {{ tender.budget }}</p>
+            <p class="card-text"><strong>Deadline:</strong> {{ tender.deadline }}</p>
+            {% if not accepted %}
+              <a href="{% url 'accept_tender' tender.id %}" class="btn btn-primary">Accept Tender</a>
+            {% else %}
+              <p class="text-success">You have already accepted this tender.</p>
+            {% endif %}
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Confirmed Payments{% endblock %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+  {% include 'includes/messages.html' %}
+  <div class="container">
+    <div class="row">
+      {% include 'includes/supplier_sidebar.html' %}
+      <main class="col-md-9">
+        <article class="card">
+          <header class="card-header">
+            <h4 class="card-title">Confirmed Payments</h4>
+          </header>
+          <div class="card-body">
+            {% if confirmed_payments %}
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Payment ID</th>
+                    <th scope="col">Tender Title</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for payment in confirmed_payments %}
+                    <tr>
+                      <td>{{ payment.payment_id }}</td>
+                      <td>{{ payment.tender_response.tender_request.title }}</td>
+                      <td>${{ payment.amount }}</td>
+                      <td>{{ payment.created_at|date:"Y-m-d H:i" }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <p>No confirmed payments found.</p>
+            {% endif %}
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

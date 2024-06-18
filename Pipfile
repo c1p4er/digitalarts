@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asgiref = "*"
+certifi = "*"
+charset-normalizer = "==3.3.2"
+django = "*"
+django-admin-thumbnails = "*"
+django-axes = "*"
+django-session-timeout = "*"
+idna = "*"
+pillow = "*"
+psycopg = "*"
+python-decouple = "*"
+requests = "==2.31.0"
+six = "*"
+sqlparse = "*"
+typing-extensions = "*"
+urllib3 = "*"
+gunicorn = "*"
+whitenoise = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

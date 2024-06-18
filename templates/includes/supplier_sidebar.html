@@ -1,0 +1,14 @@
+<aside class="col-md-3">
+    <!--   SIDEBAR   -->
+    <ul class="list-group">
+      <a class="list-group-item {% if '/accounts/' == request.path %}active{% endif %}" href="{% url 'supplier_dashboard' %}"> Dashboard </a>
+      <a class="list-group-item {% if '/product_request/' in request.path %}active{% endif %}" href="{% url 'tender_list' %}"> Tenders</a>
+      <a class="list-group-item {% if '/product_request/' in request.path %}active{% endif %}" href="{% url 'accepted_tenders_list' %}"> Accepted Tenders</a>
+      <a class="list-group-item {% if '/product_request/' in request.path %}active{% endif %}" href="{% url 'delivered_products' %}"> Delivered Tenders</a>
+      <a class="list-group-item {% if '/product_request/' in request.path %}active{% endif %}" href="{% url 'view_paid_responses' %}"> Pending confirmation Payments</a>
+      <a class="list-group-item {% if '/product_request/' in request.path %}active{% endif %}" href="{% url 'confirmed_payments' %}"> Confirmed Payments</a>
+    </ul>
+    <br />
+    
+    <!--   SIDEBAR .//END   -->
+  </aside>

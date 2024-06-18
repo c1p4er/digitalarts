@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<div class="container">
+    {% include 'includes/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Orders that have arrived:</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Order Number</th>
+                            <th>Shipped At</th>
+                            <th>Delivered At</th>
+                            <th>Location</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for shipment in shipments %}
+                        <tr>
+                            <td>{{ shipment.order.order_number }}</td>
+                            <td>{{ shipment.shipped_at }}</td>
+                            <td>{{ shipment.delivered_at }}</td>
+                            <td>{{ shipment.location }}</td>
+                            <td>
+                                <a href="{% url 'mark_as_read' shipment.id %}" class="btn btn-success btn-sm">Mark as Received</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No shipments have arrived yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

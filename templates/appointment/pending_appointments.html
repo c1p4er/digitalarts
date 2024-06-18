@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pending Appointments{% endblock %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+  {% include 'includes/messages.html' %}
+  <div class="container">
+    <div class="row">
+      {% include 'includes/dashboard_sidebar.html' %}
+      <main class="col-md-9">
+        <article class="card">
+          <header class="card-header">
+            <strong class="d-inline-block mr-3">Logged in as:</strong>
+            <span>{{ user.full_name }}</span>
+          </header>
+          <div class="card-body">
+            <h2>Pending Appointments</h2>
+            {% if pending_appointments %}
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for appointment in pending_appointments %}
+                <tr>
+                  <td>{{ appointment.service.name }}</td>
+                  <td>{{ appointment.date }}</td>
+                  <td>{{ appointment.time }}</td>
+                  <td>
+                    <a href="{% url 'appointment_detail' appointment.id %}" class="btn btn-primary btn-sm">View Details</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p>No pending appointments.</p>
+            {% endif %}
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+</section>
+{% endblock %}

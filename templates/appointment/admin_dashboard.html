@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h2>Admin Dashboard - Pending Payments</h2>
+<table>
+    <tr>
+        <th>User</th>
+        <th>Service</th>
+        <th>Amount</th>
+        <th>Payment ID</th>
+        <th>Actions</th>
+    </tr>
+    {% for payment in pending_payments %}
+    <tr>
+        <td>{{ payment.appointment.user.username }}</td>
+        <td>{{ payment.appointment.service.name }}</td>
+        <td>${{ payment.amount }}</td>
+        <td>{{ payment.payment_id }}</td>
+        <td>
+            <form method="post" action="{% url 'confirm_payment' payment.id %}">
+                {% csrf_token %}
+                <button type="submit" name="action" value="confirm">Confirm Payment</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
